@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}Get Quote{% endblock %}
+
+{% block main %}
+<p>The name of the stock is: {{ quote["name"] }} and price is: ${{ quote["price"] | usd | striptags | title }}</p>
+
+
+{% endblock %}
