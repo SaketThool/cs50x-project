@@ -5,7 +5,6 @@ from flask import Flask, render_template
 # Configure application
 app = Flask(__name__)
 
-
 def load_data():
     with open("data/worldcups.csv", newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)

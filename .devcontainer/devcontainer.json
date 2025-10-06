@@ -1,0 +1,10 @@
+{
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"janisdd.vscode-edit-csv",
+				"streetsidesoftware.code-spell-checker"
+			]
+		}
+	}
+}
