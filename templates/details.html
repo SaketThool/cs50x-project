@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block main %}
+<h1>World Cup {{ cup.year }}</h1>
+<p><strong>Winner:</strong> {{ cup.winner }}</p>
+<p><strong>Runner-Up:</strong> {{ cup.runner_up }}</p>
+<p><strong>Host:</strong> {{ cup.host }}</p>
+<p><strong>Final Score:</strong> {{ cup.final_score }}</p>
+<p><strong>Top Scorer:</strong> {{ cup.top_scorer }}</p>
+<p><strong>Most Wickets:</strong> {{ cup.most_wickets }}</p>
+<a href="/">← Back</a>
+{% endblock %}

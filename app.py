@@ -1,4 +1,3 @@
-
 import csv
 import os
 from pprint import pprint
@@ -45,7 +44,11 @@ def index():
 def details(year):
     # pprint(year)
     cups = load_data()
-    cup = next((c for c in cups if int(c["year"]) == year), None)
+    cup = None
+    for c in cups:
+        if int(c["year"]) == year:
+            cup = c
+            break
     return render_template("details.html", cup=cup)
 
 @app.route("/buy", methods=["GET", "POST"])
