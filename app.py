@@ -1,5 +1,7 @@
 
+import csv
 import os
+from pprint import pprint
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -26,37 +28,18 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+def load_data():
+    with open("data/worldcups.csv", newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        return list(reader)
 
 @app.route("/")
 @login_required
 def index():
-    user_id = session["user_id"]
-    holdings = db.execute("""
-        SELECT symbol, SUM(shares) as total_shares
-        FROM transactions
-        WHERE user_id = ?
-        GROUP BY symbol
-        HAVING total_shares > 0
-    """, user_id)
-
-    portfolio = []
-    total_value = 0
-    for holding in holdings:
-        quote = lookup(holding["symbol"])
-        value = quote["price"] * holding["total_shares"]
-        total_value += value
-        portfolio.append({
-            "symbol": quote["symbol"],
-            "name": quote["name"],
-            "shares": holding["total_shares"],
-            "price": usd(quote["price"]),
-            "total": usd(value)
-        })
-
-    cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[0]["cash"]
-    total_value += cash
-
-    return render_template("index.html", portfolio=portfolio, cash=usd(cash), total=usd(total_value))
+    # user_id = session["user_id"]
+    cups = load_data()
+    # pprint(cups)
+    return render_template("index.html", cups=cups)
 
 
 @app.route("/buy", methods=["GET", "POST"])
