@@ -41,6 +41,12 @@ def index():
     # pprint(cups)
     return render_template("index.html", cups=cups)
 
+@app.route("/year/<int:year>")
+def details(year):
+    # pprint(year)
+    cups = load_data()
+    cup = next((c for c in cups if int(c["year"]) == year), None)
+    return render_template("details.html", cup=cup)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
