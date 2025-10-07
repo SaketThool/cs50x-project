@@ -11,7 +11,6 @@ def load_data():
         return list(reader)
 
 @app.route("/")
-
 def index():
     cups = load_data()
     # pprint(cups)
@@ -27,3 +26,18 @@ def details(year):
             cup = c
             break
     return render_template("details.html", cup=cup)
+
+app.route("/women")
+def women_index():
+    cups = load_data()  # You can use a separate CSV file for women's data if needed
+    return render_template("women_index.html", cups=cups)
+
+def load_women_data():
+    with open("data/womens_worldcups.csv", newline='', encoding='utf-8') as csvfile:
+        reader = csv.DictReader(csvfile)
+        return list(reader)
+    
+@app.route("/women")
+def women_index():
+    cups = load_women_data()
+    return render_template("women_index.html", cups=cups)
